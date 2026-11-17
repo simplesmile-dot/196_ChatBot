@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Chatbot Nemotron</title>
-
+    <title>Chatbot AI</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <div class="chat-container">
 
         <div class="chat-header">
             <h1>Chatbot AI</h1>
+            <p>Ready to assist you</p>
         </div>
 
         <div id="chat-box" class="chat-box">
-
             <div class="message bot">
                 <div class="message-content">
                     Halo! Ada yang bisa saya bantu?
                 </div>
             </div>
-
         </div>
 
         <form id="chat-form" class="chat-form">
-
-            <input
-                type="text"
-                id="user-input"
-                placeholder="Ketik pesan..."
-                autocomplete="off"
+            <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Ketik pesan..." 
+                autocomplete="off" 
                 required
             >
-
-            <button type="submit">
+            <button type="submit" id="send-button">
                 Kirim
             </button>
-
         </form>
 
     </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
