@@ -101,3 +101,10 @@ app.post("/api/chat", async (req, res) => {
                     res.write("data: [DONE]");
                     continue;
                 }
+
+                try {
+                    const json = JSON.parse(data);
+                    const content = json.choices[0]?.delta?.content;
+                    if (content) {
+                        res.write(`data: ${JSON.stringify(content)}\n\n`);
+           
