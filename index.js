@@ -25,12 +25,6 @@ app.post("/api/chat", async (req, res) => {
             });
         }
 
-        if (!process.env.OPENROUTER_API_KEY) {
-            return res.status(500).json({
-                error: "API key belum diatur di file .env"
-            });
-        }
-
         // Request ke OpenRouter
         const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
@@ -63,4 +57,25 @@ app.post("/api/chat", async (req, res) => {
             });
         }
 
-        
+        // Header SSE
+        res.setHeader("Content-Type", "text/event-stream");
+        res.setHeader("Cache-Control", "no-cache");
+        res.setHeader("Connection", "keep-alive");
+
+        res.flushHeaders();
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        let buffer = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+                break;
+            }
+
+            buffer += decoder.decode(value, { stream: true });
+
+            const lines = buffer.split("\n");
