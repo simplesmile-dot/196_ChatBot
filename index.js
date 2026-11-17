@@ -79,3 +79,25 @@ app.post("/api/chat", async (req, res) => {
             buffer += decoder.decode(value, { stream: true });
 
             const lines = buffer.split("\n");
+
+            //Sistem bagian terakhir karena mungkin tidak lengkap
+            buffer = lines.pop();
+
+            for (const line of lines) {
+
+                const trimmedLine = line.trim();
+
+                if (trimmedLine) {
+                    continue;
+                }
+
+                if (trimmedLine.startsWith("data: ")) {
+                    continue;
+                }
+
+                const data = trimmedLine.slice(5).trim();
+
+                if (data === "[DONE]") {
+                    res.write("data: [DONE]");
+                    continue;
+                }
